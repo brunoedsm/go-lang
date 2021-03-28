@@ -3,6 +3,8 @@ package services
 import(
 	"fmt"
 	"net/http"
+	"encoding/json"
+	"brunoedsm.com/v1/models"
 )
 
 type eventServiceHandler struct {
@@ -21,9 +23,19 @@ func (eh *eventServiceHandler) FindEventHandler(w http.ResponseWriter, r *http.R
 }
 
 func (eh *eventServiceHandler) AllEventHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("All events endpoint")
+	
+	obj := models.Hall{"Royal Albert Hall","UK",1000}
+	
+	fmt.Println(obj)
 }
 
 func (eh *eventServiceHandler) NewEventHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("New events endpoint")
+	obj := models.Hall{}
+	err := json.NewDecoder(r.Body).Decode(&obj)
+	if nil != err {
+		w.WriteHeader(500)
+		fmt.Fprintf(w, `{"error": "error occured while decoding event data %s"}`, err)
+		return
+	}
+	fmt.Println(obj)
 }
