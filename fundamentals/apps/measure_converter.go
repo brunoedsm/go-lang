@@ -14,6 +14,13 @@ func main(){
 		os.Exit(1)
 	}
 
+	/*
+		slice -> dynamic array
+		:= -> create a variable and attribute in real time
+		[i] -> index item of array
+		[i : j] -> index item of array by position (i) 
+	*/
+
 	unityOrigin := os.Args[len(os.Args) - 1]
 
 	valuesOrigin := os.Args[1 : len(os.Args) - 1]
